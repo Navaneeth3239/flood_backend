@@ -125,3 +125,88 @@ async def recalculate_flood_risk(payload: RecalculateRiskPayload = Body(default=
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to recalculate tower risk: {e}")
 
+
+class FetchOsmPayload(BaseModel):
+    minLat: Optional[float] = None
+    minLon: Optional[float] = None
+    maxLat: Optional[float] = None
+    maxLon: Optional[float] = None
+    north: Optional[float] = None
+    south: Optional[float] = None
+    east: Optional[float] = None
+    west: Optional[float] = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    radius_km: Optional[float] = None
+    save_to_db: bool = True
+
+
+@router.post("/fetch-osm")
+async def fetch_osm_towers(payload: FetchOsmPayload = Body(default=FetchOsmPayload())):
+    """
+    Fetches real-time mobile communication tower data from OpenStreetMap via Overpass API
+    (Overpass_API=https://overpass-api.de/api/interpreter), extracts communication metadata,
+    and updates the database.
+    """
+    effective_min_lat = payload.minLat if payload.minLat is not None else payload.south
+    effective_max_lat = payload.maxLat if payload.maxLat is not None else payload.north
+    effective_min_lon = payload.minLon if payload.minLon is not None else payload.west
+    effective_max_lon = payload.maxLon if payload.maxLon is not None else payload.east
+
+    try:
+        return await tower_service.fetch_osm_towers(
+            min_lat=effective_min_lat,
+            min_lon=effective_min_lon,
+            max_lat=effective_max_lat,
+            max_lon=effective_max_lon,
+            center_lat=payload.lat,
+            center_lng=payload.lng,
+            radius_km=payload.radius_km,
+            save_to_db=payload.save_to_db,
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to fetch OSM towers: {e}")
+
+
+@router.get("/fetch-osm")
+async def fetch_osm_towers_get(
+    minLat: Optional[float] = Query(None),
+    minLon: Optional[float] = Query(None),
+    maxLat: Optional[float] = Query(None),
+    maxLon: Optional[float] = Query(None),
+    north: Optional[float] = Query(None),
+    south: Optional[float] = Query(None),
+    east: Optional[float] = Query(None),
+    west: Optional[float] = Query(None),
+    lat: Optional[float] = Query(None),
+    lng: Optional[float] = Query(None),
+    radius_km: Optional[float] = Query(None),
+    save_to_db: bool = Query(True),
+):
+    """
+    GET endpoint to fetch real-time mobile communication tower data from OpenStreetMap.
+    """
+    effective_min_lat = minLat if minLat is not None else south
+    effective_max_lat = maxLat if maxLat is not None else north
+    effective_min_lon = minLon if minLon is not None else west
+    effective_max_lon = maxLon if maxLon is not None else east
+
+    try:
+        return await tower_service.fetch_osm_towers(
+            min_lat=effective_min_lat,
+            min_lon=effective_min_lon,
+            max_lat=effective_max_lat,
+            max_lon=effective_max_lon,
+            center_lat=lat,
+            center_lng=lng,
+            radius_km=radius_km,
+            save_to_db=save_to_db,
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Failed to fetch OSM towers: {e}")
+
+

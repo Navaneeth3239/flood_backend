@@ -13,10 +13,11 @@ def area_id_for(payload):
     value = payload.area_id or payload.area_key
     if not value:
         return None
+    raw = value.removeprefix('dt-area-')
     try:
-        return str(UUID(value.removeprefix('dt-area-')))
+        return str(UUID(raw))
     except ValueError:
-        return None
+        return str(raw)
 
 
 def boundary_key(polygon, bbox):

@@ -12,11 +12,16 @@ from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 import pymongo
 from bson import ObjectId
 
-# Configure public DNS resolver fallback to prevent Windows local interface SRV timeouts
+# Configure DNS resolver with system nameservers and fallback to prevent timeouts
 try:
     import dns.resolver
-    _res = dns.resolver.Resolver(configure=False)
-    _res.nameservers = ["8.8.8.8", "1.1.1.1", "8.8.4.4"]
+    try:
+        _res = dns.resolver.Resolver(configure=True)
+        if not _res.nameservers:
+            _res.nameservers = ["8.8.8.8", "1.1.1.1"]
+    except Exception:
+        _res = dns.resolver.Resolver(configure=False)
+        _res.nameservers = ["8.8.8.8", "1.1.1.1", "8.8.4.4"]
     dns.resolver.default_resolver = _res
 except Exception:
     pass
@@ -25,8 +30,10 @@ ROOT_DIR = Path(__file__).parent.parent
 load_dotenv(ROOT_DIR / ".env")
 load_dotenv()
 
-DEFAULT_MONGO_URI = "mongodb+srv://Navee:Navee3239@cluster0.qs8xxxu.mongodb.net/scms_flood?retryWrites=true&w=majority"
-MONGO_URL = os.environ.get("MONGODB_URI") or os.environ.get("MONGO_URL") or DEFAULT_MONGO_URI
+# Database credentials must only be supplied by the deployment environment. A
+# fallback URI makes a failed deployment appear healthy while silently writing
+# to an unrelated database and risks committing a credential.
+MONGO_URL = os.environ.get("MONGODB_URI") or os.environ.get("MONGO_URL")
 DB_NAME = os.environ.get("DB_NAME", "scms_flood")
 
 TABLE_ALIASES = {
@@ -37,11 +44,32 @@ _async_client: Optional[AsyncIOMotorClient] = None
 _sync_client: Optional[pymongo.MongoClient] = None
 
 
+class DatabaseConfigurationError(RuntimeError):
+    """Raised when durable MongoDB storage has not been configured."""
+
+
+def _configured_mongo_url() -> str:
+    if not MONGO_URL:
+        raise DatabaseConfigurationError(
+            "MongoDB is not configured. Set MONGODB_URI (or MONGO_URL) in backend/.env."
+        )
+    return MONGO_URL
+
+
 def get_async_client() -> AsyncIOMotorClient:
     global _async_client
-    if _async_client is None:
+    loop_closed = False
+    if _async_client is not None:
+        try:
+            loop = _async_client.get_io_loop()
+            if loop is not None and loop.is_closed():
+                loop_closed = True
+        except Exception:
+            pass
+
+    if _async_client is None or loop_closed:
         _async_client = AsyncIOMotorClient(
-            MONGO_URL,
+            _configured_mongo_url(),
             serverSelectionTimeoutMS=10000,
             connectTimeoutMS=10000,
         )
@@ -58,11 +86,16 @@ def get_sync_db():
     global _sync_client
     if _sync_client is None:
         _sync_client = pymongo.MongoClient(
-            MONGO_URL,
+            _configured_mongo_url(),
             serverSelectionTimeoutMS=10000,
             connectTimeoutMS=10000,
         )
     return _sync_client[DB_NAME]
+
+
+async def verify_database_connection() -> None:
+    """Fail explicitly when Mongo is unavailable instead of accepting local-only saves."""
+    await get_async_client().admin.command("ping")
 
 
 def _clean_doc_output(doc: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:

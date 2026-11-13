@@ -295,12 +295,34 @@ async def extract_buildings(payload: LocationRequest = Body(...)):
             status = {"complete": True, "source": "cache", "loaded_tiles": 1, "total_tiles": 1, "failed_tiles": []}
         else:
             try:
-                geojson, status = await asyncio.wait_for(building_service.get_buildings(
-                    bbox["north"], bbox["south"], bbox["east"], bbox["west"], polygon=payload.polygon
-                ), timeout=14)
-            except Exception:
-                geojson = None
-                status = {"complete": False, "source": "fallback", "loaded_tiles": 1, "total_tiles": 1, "failed_tiles": []}
+                from services.ms_building_service import ms_building_service
+                ms_res = await asyncio.wait_for(
+                    ms_building_service.get_buildings_for_bbox(
+                        min_lat=float(bbox["south"]),
+                        min_lon=float(bbox["west"]),
+                        max_lat=float(bbox["north"]),
+                        max_lon=float(bbox["east"]),
+                        polygon=payload.polygon,
+                        max_buildings=2500,
+                    ),
+                    timeout=14,
+                )
+                if ms_res and ms_res.get("features"):
+                    geojson = ms_res
+                    status = {"complete": True, "source": "microsoft_ml", "loaded_tiles": 1, "total_tiles": 1, "failed_tiles": []}
+                else:
+                    geojson, status = await asyncio.wait_for(building_service.get_buildings(
+                        bbox["north"], bbox["south"], bbox["east"], bbox["west"], polygon=payload.polygon
+                    ), timeout=10)
+            except Exception as e:
+                logger.warning("Microsoft ML building extraction fallback: %s", e)
+                try:
+                    geojson, status = await asyncio.wait_for(building_service.get_buildings(
+                        bbox["north"], bbox["south"], bbox["east"], bbox["west"], polygon=payload.polygon
+                    ), timeout=8)
+                except Exception:
+                    geojson = None
+                    status = {"complete": False, "source": "fallback", "loaded_tiles": 1, "total_tiles": 1, "failed_tiles": []}
 
             if not geojson or not geojson.get("features"):
                 geojson = _generate_fallback_buildings(bbox, payload.polygon)

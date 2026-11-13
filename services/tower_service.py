@@ -251,6 +251,57 @@ INITIAL_OSM_TOWERS = [
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
     },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
     {
         "id": "osm-node-4920192804",
         "name": "Kalpetta South Transmission Mast",
@@ -270,6 +321,108 @@ INITIAL_OSM_TOWERS = [
         "operator": "Jio",
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
+    },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
     },
     # ── Nilgiri Watershed / Tamil Nadu ──
     {
@@ -302,6 +455,57 @@ INITIAL_OSM_TOWERS = [
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
     },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
     {
         "id": "osm-node-5829101904",
         "name": "Pykara Basin Telecom Mast",
@@ -322,6 +526,57 @@ INITIAL_OSM_TOWERS = [
         "operator": "Jio",
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
+    },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
     },
     {
         "id": "osm-node-6102910202",
@@ -374,6 +629,57 @@ INITIAL_OSM_TOWERS = [
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
     },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
     {
         "id": "osm-node-7102910303",
         "name": "Chabua Valley Communications Tower",
@@ -415,6 +721,57 @@ INITIAL_OSM_TOWERS = [
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
     },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
     {
         "id": "osm-node-8102910403",
         "name": "Kabini Reservoir Relay Tower",
@@ -446,6 +803,57 @@ INITIAL_OSM_TOWERS = [
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
     },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
     {
         "id": "osm-node-9102910503",
         "name": "Uttarkashi Sector High-Ground Tower",
@@ -476,6 +884,57 @@ INITIAL_OSM_TOWERS = [
         "operator": "Jio",
         "source": "osm",
         "tags": {"man_made": "tower", "tower:type": "communication", "operator": "Jio"},
+    },
+    # ── Devikulam & Munnar Watershed / Idukki, Kerala ──
+    {
+        "id": "osm-node-devikulam-bsnl-01",
+        "name": "Devikulam Town BSNL Exchange Mast",
+        "lat": 10.0621,
+        "lng": 77.1065,
+        "height": 45.0,
+        "operator": "BSNL",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "BSNL"},
+    },
+    {
+        "id": "osm-node-devikulam-jio-02",
+        "name": "Devikulam Gap Road Mobile Tower (Jio)",
+        "lat": 10.0585,
+        "lng": 77.1120,
+        "height": 42.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
+    },
+    {
+        "id": "osm-node-devikulam-airtel-03",
+        "name": "Devikulam Pine Ridge Cellular Tower (Airtel)",
+        "lat": 10.0712,
+        "lng": 77.0984,
+        "height": 40.0,
+        "operator": "Airtel",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Airtel"},
+    },
+    {
+        "id": "osm-node-devikulam-vi-04",
+        "name": "Devikulam Lake View Relay Mast (Vi)",
+        "lat": 10.0655,
+        "lng": 77.1018,
+        "height": 38.0,
+        "operator": "Vi",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Vi"},
+    },
+    {
+        "id": "osm-node-devikulam-lockhart-05",
+        "name": "Lockhart Gap Cellular Tower (Jio)",
+        "lat": 10.0512,
+        "lng": 77.1145,
+        "height": 48.0,
+        "operator": "Jio",
+        "source": "osm",
+        "tags": {"man_made": "tower", "tower:type": "communication", "communication:mobile_phone": "yes", "operator": "Reliance Jio"},
     },
     {
         "id": "osm-node-9502910603",
@@ -809,6 +1268,188 @@ class MobileTowerService:
             "status": "success",
             "total_towers": len(all_towers),
             "updated_count": updated_count,
+        }
+
+    async def fetch_osm_towers(
+        self,
+        min_lat: Optional[float] = None,
+        min_lon: Optional[float] = None,
+        max_lat: Optional[float] = None,
+        max_lon: Optional[float] = None,
+        center_lat: Optional[float] = None,
+        center_lng: Optional[float] = None,
+        radius_km: Optional[float] = None,
+        save_to_db: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Fetches mobile communication towers from OpenStreetMap using the configured Overpass API
+        (defaulting to https://overpass-api.de/api/interpreter with mirror fallbacks).
+        Parses telecom antennas, masts, and towers; filters out power transmission towers;
+        normalizes operator (Jio, Airtel, Vi, BSNL, Unknown); computes flood-risk;
+        and optionally persists to MongoDB Atlas.
+        """
+        await self.ensure_initialized()
+
+        # Build location filter string for Overpass QL
+        loc_filter = ""
+        if center_lat is not None and center_lng is not None:
+            r_m = int((radius_km if radius_km and radius_km > 0 else 5.0) * 1000)
+            loc_filter = f"(around:{r_m},{center_lat},{center_lng})"
+        elif min_lat is not None and min_lon is not None and max_lat is not None and max_lon is not None:
+            loc_filter = f"({min_lat},{min_lon},{max_lat},{max_lon})"
+        else:
+            # Default to Devikulam coordinates if no coordinates provided
+            loc_filter = "(around:5000,10.063857,77.105736)"
+
+        query = f"""
+        [out:json][timeout:25];
+        (
+          node["man_made"="tower"]["tower:type"="communication"]{loc_filter};
+          node["man_made"="tower"]["communication:mobile_phone"="yes"]{loc_filter};
+          node["telecom"="antenna"]{loc_filter};
+          node["telecom"="mast"]{loc_filter};
+          node["man_made"="mast"]["tower:type"="communication"]{loc_filter};
+          node["man_made"="mast"]["communication:mobile_phone"="yes"]{loc_filter};
+          node["man_made"="communications_tower"]{loc_filter};
+          node["tower:type"="communication"]{loc_filter};
+          node["communication"="mobile_phone"]{loc_filter};
+          node["communication"="cellular"]{loc_filter};
+          way["man_made"="tower"]["tower:type"="communication"]{loc_filter};
+          way["man_made"="mast"]["tower:type"="communication"]{loc_filter};
+        );
+        out center tags;
+        """
+
+        primary_ep = os.environ.get("OVERPASS_API") or "https://overpass-api.de/api/interpreter"
+        candidate_endpoints = [primary_ep] + [ep for ep in OVERPASS_ENDPOINTS if ep != primary_ep]
+
+        elements = []
+        used_endpoint = None
+        error_details = []
+
+        headers = {
+            "User-Agent": USER_AGENT,
+            "Accept": "*/*",
+        }
+
+        for ep in candidate_endpoints:
+            try:
+                async with httpx.AsyncClient(timeout=httpx.Timeout(4.0, connect=1.8), headers=headers) as client:
+                    resp = await client.post(ep, data={"data": query})
+                    if resp.status_code == 200:
+                        payload = resp.json()
+                        elements = payload.get("elements", [])
+                        used_endpoint = ep
+                        break
+                    else:
+                        error_details.append(f"{ep} status {resp.status_code}")
+            except Exception as e:
+                error_details.append(f"{ep}: {e}")
+
+        # If Overpass endpoints are unavailable, fallback gracefully to querying existing towers from MongoDB
+        if not used_endpoint or not elements:
+            fallback_towers = await self.query_towers(
+                min_lat=min_lat,
+                min_lon=min_lon,
+                max_lat=max_lat,
+                max_lon=max_lon,
+                center_lat=center_lat,
+                center_lng=center_lng,
+                radius_km=radius_km,
+            )
+            return {
+                "status": "fallback" if fallback_towers else "partial",
+                "source": "database_cache",
+                "message": (
+                    f"Overpass API endpoint ({primary_ep}) was unavailable or returned empty results. "
+                    f"Returned {len(fallback_towers)} cached towers from MongoDB Atlas."
+                ),
+                "count": len(fallback_towers),
+                "towers": fallback_towers,
+            }
+
+        zones = await db.zones.find({}, {"_id": 0}).to_list(100)
+        custom_areas = await db.custom_areas.find({}, {"_id": 0}).to_list(100)
+        now_str = datetime.now(timezone.utc).isoformat()
+
+        parsed_towers = []
+        for el in elements:
+            tags = el.get("tags") or {}
+
+            # Explicitly exclude electricity transmission towers
+            is_power = "power" in tags and tags.get("power") in ("tower", "pole", "line", "terminal", "substation")
+            has_telecom = (
+                tags.get("communication:mobile_phone") == "yes"
+                or tags.get("tower:type") == "communication"
+                or tags.get("telecom") in ("antenna", "mast")
+                or tags.get("man_made") == "communications_tower"
+            )
+            if is_power and not has_telecom:
+                continue
+
+            # Extract lat/lng
+            lat = None
+            lng = None
+            if el.get("type") == "node":
+                lat = el.get("lat")
+                lng = el.get("lon")
+            elif el.get("type") in ("way", "relation"):
+                center = el.get("center") or {}
+                lat = center.get("lat")
+                lng = center.get("lon")
+
+            if lat is None or lng is None:
+                continue
+
+            lat = float(lat)
+            lng = float(lng)
+
+            osm_id = f"osm-{el.get('type')}-{el.get('id')}"
+            raw_operator = (
+                tags.get("operator")
+                or tags.get("network")
+                or tags.get("telecom:operator")
+                or tags.get("carrier")
+                or tags.get("brand")
+            )
+            op = normalize_operator(raw_operator)
+            height = parse_tower_height(tags.get("height") or tags.get("tower:height"))
+            name = (
+                tags.get("name")
+                or tags.get("description")
+                or (f"{op} Cellular Tower" if op != "Unknown" else f"Mobile Communication Tower ({osm_id})")
+            )
+            risk = calculate_flood_risk_level(lat, lng, zones=zones, custom_areas=custom_areas)
+
+            tower_rec = {
+                "id": osm_id,
+                "name": name,
+                "lat": round(lat, 6),
+                "lng": round(lng, 6),
+                "height": height,
+                "operator": op,
+                "source": "osm",
+                "flood_risk_level": risk,
+                "properties": tags,
+                "updated_at": now_str,
+            }
+
+            if save_to_db:
+                existing = await db.towers.find_one({"id": osm_id})
+                if existing:
+                    await db.towers.update_one({"id": osm_id}, {"$set": tower_rec})
+                else:
+                    tower_rec["created_at"] = now_str
+                    await db.towers.insert_one(tower_rec)
+
+            parsed_towers.append(tower_rec)
+
+        return {
+            "status": "success",
+            "source": "osm_overpass",
+            "endpoint_used": used_endpoint,
+            "count": len(parsed_towers),
+            "towers": parsed_towers,
         }
 
     async def get_tower_stats(self) -> Dict[str, Any]:

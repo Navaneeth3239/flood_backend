@@ -205,8 +205,8 @@ class OSMTileLoader:
 
     async def _fetch_tile_from_endpoints(self, dataset: str, tile: Tile, query: str) -> tuple[list[dict[str, Any]], bool]:
         headers = {
-            "User-Agent": "Mozilla/5.0 FlashFloodDigitalTwin/1.0 (contact: admin@ein.gov.in)",
-            "Accept": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) FlashFloodDigitalTwin/1.0",
+            "Accept": "*/*",
             "Accept-Encoding": "gzip, deflate",
         }
         errors: list[str] = []

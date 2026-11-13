@@ -1,5 +1,61 @@
 [
   {
+    "area_id": "devikulam-kerala-permanent-01",
+    "polygon": [
+      [
+        10.045839,
+        77.087413
+      ],
+      [
+        10.081875,
+        77.087413
+      ],
+      [
+        10.081875,
+        77.124059
+      ],
+      [
+        10.045839,
+        77.124059
+      ]
+    ],
+    "file": "devikulam-kerala-permanent-01.json.gz",
+    "sha256": "44be695a0cb7bb2a3d00d648910b74b99e3ba47fcb4dd72bb5b1c0d0f80634d8",
+    "counts": {
+      "roads": 126,
+      "buildings": 765,
+      "rivers": 70
+    }
+  },
+  {
+    "area_id": "munnar-devikulam-permanent-02",
+    "polygon": [
+      [
+        10.035,
+        77.045
+      ],
+      [
+        10.115,
+        77.045
+      ],
+      [
+        10.115,
+        77.135
+      ],
+      [
+        10.035,
+        77.135
+      ]
+    ],
+    "file": "munnar-devikulam-permanent-02.json.gz",
+    "sha256": "70a712528212e99ea125325ca8c4f53e39126e4166928f2527b7824d0122f71e",
+    "counts": {
+      "roads": 868,
+      "buildings": 3000,
+      "rivers": 382
+    }
+  },
+  {
     "area_id": "b3e2c3ce-e6b0-4c37-8f85-5595d23f5d40",
     "polygon": [
       [
