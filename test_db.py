@@ -1,18 +1,15 @@
-import os
 import asyncio
-import asyncpg
+from lib.db import verify_database_connection, get_async_db
 
 async def main():
-    pw = os.environ.get("SUPABASE_DB_PASSWORD", "")
-    host = os.environ.get("SUPABASE_DB_HOST", "db.odqmpcizoqatwxyrnlmj.supabase.co")
-    if not pw:
-        print("SUPABASE_DB_PASSWORD not set")
-        return
     try:
-        conn = await asyncpg.connect(user="postgres", password=pw, database="postgres", host=host, port=5432)
-        print("Connected via standard db host!")
-        await conn.close()
+        await verify_database_connection()
+        print("SUCCESS: MongoDB Atlas connection verified!")
+        db = get_async_db()
+        count = await db.custom_areas.count_documents({})
+        print(f"Total custom areas in MongoDB: {count}")
     except Exception as e:
-        print(f"Failed db connection: {e}")
+        print(f"ERROR: {e}")
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
