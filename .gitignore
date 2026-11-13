@@ -26,6 +26,9 @@ htmlcov/
 # Logs
 *.log
 
+# Runtime cache
+cache/
+
 # OS & Editor
 .DS_Store
 Thumbs.db

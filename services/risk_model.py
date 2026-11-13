@@ -1,118 +1,141 @@
 """GNN-Transformer Flood Prediction Engine: Spatial Message-Passing Graph Neural Network + Temporal Multi-Head Self-Attention."""
 import math
+import logging
 from typing import Dict, Any, List, Optional, Tuple
 import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import networkx as nx
 
+logger = logging.getLogger(__name__)
 
-class SpatialGNNConv(nn.Module):
-    """Spatial Graph Convolution: aggregates neighbor features across hydrological and road topologies."""
-
-    def __init__(self, in_features: int, out_features: int):
-        super().__init__()
-        self.weight = nn.Parameter(torch.FloatTensor(in_features, out_features))
-        self.bias = nn.Parameter(torch.FloatTensor(out_features))
-        self.reset_parameters()
-
-    def reset_parameters(self):
-        nn.init.xavier_uniform_(self.weight)
-        nn.init.zeros_(self.bias)
-
-    def forward(self, x: torch.Tensor, adj: torch.Tensor) -> torch.Tensor:
-        # Standard GCN: D^(-0.5) * A * D^(-0.5) * X * W
-        deg = torch.sum(adj, dim=-1, keepdim=True)
-        deg_inv_sqrt = torch.pow(torch.clamp(deg, min=1e-6), -0.5)
-        norm_adj = deg_inv_sqrt * adj * deg_inv_sqrt.transpose(-1, -2)
-        support = torch.matmul(x, self.weight)
-        output = torch.matmul(norm_adj, support) + self.bias
-        return F.relu(output)
+try:
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
+    TORCH_AVAILABLE = True
+except ImportError:
+    torch = None
+    nn = None
+    F = None
+    TORCH_AVAILABLE = False
+    logger.warning("PyTorch not installed in this environment. FloodRiskEngine using vectorized hydro-topographic physics mode.")
 
 
-class TemporalTransformerBlock(nn.Module):
-    """Temporal Transformer: Multi-head attention across time sequence of rainfall, river depth, soil moisture."""
+if TORCH_AVAILABLE:
+    class SpatialGNNConv(nn.Module):
+        """Spatial Graph Convolution: aggregates neighbor features across hydrological and road topologies."""
 
-    def __init__(self, d_model: int, nhead: int = 4, dim_feedforward: int = 64):
-        super().__init__()
-        self.self_attn = nn.MultiheadAttention(d_model, nhead, batch_first=True)
-        self.linear1 = nn.Linear(d_model, dim_feedforward)
-        self.linear2 = nn.Linear(dim_feedforward, d_model)
-        self.norm1 = nn.LayerNorm(d_model)
-        self.norm2 = nn.LayerNorm(d_model)
-        self.dropout = nn.Dropout(0.1)
+        def __init__(self, in_features: int, out_features: int):
+            super().__init__()
+            self.weight = nn.Parameter(torch.FloatTensor(in_features, out_features))
+            self.bias = nn.Parameter(torch.FloatTensor(out_features))
+            self.reset_parameters()
 
-    def forward(self, x: torch.Tensor, causal: bool = False) -> torch.Tensor:
-        mask = torch.ones(x.shape[1], x.shape[1], device=x.device, dtype=torch.bool).triu(1) if causal else None
-        attn_out, _ = self.self_attn(x, x, x, attn_mask=mask, need_weights=False)
-        x = self.norm1(x + self.dropout(attn_out))
-        ff_out = self.linear2(F.relu(self.linear1(x)))
-        x = self.norm2(x + self.dropout(ff_out))
-        return x
+        def reset_parameters(self):
+            nn.init.xavier_uniform_(self.weight)
+            nn.init.zeros_(self.bias)
+
+        def forward(self, x: torch.Tensor, adj: torch.Tensor) -> torch.Tensor:
+            # Standard GCN: D^(-0.5) * A * D^(-0.5) * X * W
+            deg = torch.sum(adj, dim=-1, keepdim=True)
+            deg_inv_sqrt = torch.pow(torch.clamp(deg, min=1e-6), -0.5)
+            norm_adj = deg_inv_sqrt * adj * deg_inv_sqrt.transpose(-1, -2)
+            support = torch.matmul(x, self.weight)
+            output = torch.matmul(norm_adj, support) + self.bias
+            return F.relu(output)
 
 
-class GNNTransformerFloodModel(nn.Module):
-    """Unified GNN-Transformer architecture for spatial-temporal flash flood and landslide risk forecasting."""
+    class TemporalTransformerBlock(nn.Module):
+        """Temporal Transformer: Multi-head attention across time sequence of rainfall, river depth, soil moisture."""
 
-    def __init__(self, node_features: int = 8, hidden_dim: int = 32):
-        super().__init__()
-        # Spatial GNN layers
-        self.gnn1 = SpatialGNNConv(node_features, hidden_dim)
-        self.gnn2 = SpatialGNNConv(hidden_dim, hidden_dim)
+        def __init__(self, d_model: int, nhead: int = 4, dim_feedforward: int = 64):
+            super().__init__()
+            self.self_attn = nn.MultiheadAttention(d_model, nhead, batch_first=True)
+            self.linear1 = nn.Linear(d_model, dim_feedforward)
+            self.linear2 = nn.Linear(dim_feedforward, d_model)
+            self.norm1 = nn.LayerNorm(d_model)
+            self.norm2 = nn.LayerNorm(d_model)
+            self.dropout = nn.Dropout(0.1)
 
-        # Temporal Transformer block
-        self.transformer = TemporalTransformerBlock(d_model=hidden_dim, nhead=4)
+        def forward(self, x: torch.Tensor, causal: bool = False) -> torch.Tensor:
+            mask = torch.ones(x.shape[1], x.shape[1], device=x.device, dtype=torch.bool).triu(1) if causal else None
+            attn_out, _ = self.self_attn(x, x, x, attn_mask=mask, need_weights=False)
+            x = self.norm1(x + self.dropout(attn_out))
+            ff_out = self.linear2(F.relu(self.linear1(x)))
+            x = self.norm2(x + self.dropout(ff_out))
+            return x
 
-        # Prediction Heads
-        self.flood_prob_head = nn.Sequential(
-            nn.Linear(hidden_dim, 16),
-            nn.ReLU(),
-            nn.Linear(16, 1),
-            nn.Sigmoid(),
-        )
 
-        self.severity_head = nn.Sequential(
-            nn.Linear(hidden_dim, 16),
-            nn.ReLU(),
-            nn.Linear(16, 4),  # 4 classes: Low, Medium, High, Critical
-        )
+    class GNNTransformerFloodModel(nn.Module):
+        """Unified GNN-Transformer architecture for spatial-temporal flash flood and landslide risk forecasting."""
 
-    def forward(self, x: torch.Tensor, adj: torch.Tensor, return_sequence: bool = False) -> Tuple[torch.Tensor, torch.Tensor]:
-        # Spatial propagation
-        h = self.gnn1(x, adj)
-        h = self.gnn2(h, adj)
+        def __init__(self, node_features: int = 8, hidden_dim: int = 32):
+            super().__init__()
+            # Spatial GNN layers
+            self.gnn1 = SpatialGNNConv(node_features, hidden_dim)
+            self.gnn2 = SpatialGNNConv(hidden_dim, hidden_dim)
 
-        # Accept legacy (nodes, features) and real (time, nodes, features) input.
-        h_seq = h.unsqueeze(1) if h.ndim == 2 else h.transpose(0, 1)
-        if x.ndim == 3:
-            position = torch.arange(h_seq.shape[1], device=h.device, dtype=h.dtype).unsqueeze(1)
-            frequency = torch.exp(torch.arange(0, h_seq.shape[-1], 2, device=h.device, dtype=h.dtype)
-                                  * (-math.log(10000.0) / h_seq.shape[-1]))
-            encoding = torch.zeros_like(h_seq[0])
-            encoding[:, 0::2] = torch.sin(position * frequency)
-            encoding[:, 1::2] = torch.cos(position * frequency)
-            h_seq = h_seq + encoding.unsqueeze(0)
-        h_all = self.transformer(h_seq, causal=True)
-        h_trans = h_all.transpose(0, 1) if return_sequence else h_all[:, -1]
+            # Temporal Transformer block
+            self.transformer = TemporalTransformerBlock(d_model=hidden_dim, nhead=4)
 
-        flood_prob = self.flood_prob_head(h_trans)
-        severity_logits = self.severity_head(h_trans)
-        return flood_prob, severity_logits
+            # Prediction Heads
+            self.flood_prob_head = nn.Sequential(
+                nn.Linear(hidden_dim, 16),
+                nn.ReLU(),
+                nn.Linear(16, 1),
+                nn.Sigmoid(),
+            )
+
+            self.severity_head = nn.Sequential(
+                nn.Linear(hidden_dim, 16),
+                nn.ReLU(),
+                nn.Linear(16, 4),  # 4 classes: Low, Medium, High, Critical
+            )
+
+        def forward(self, x: torch.Tensor, adj: torch.Tensor, return_sequence: bool = False) -> Tuple[torch.Tensor, torch.Tensor]:
+            # Spatial propagation
+            h = self.gnn1(x, adj)
+            h = self.gnn2(h, adj)
+
+            # Accept legacy (nodes, features) and real (time, nodes, features) input.
+            h_seq = h.unsqueeze(1) if h.ndim == 2 else h.transpose(0, 1)
+            if x.ndim == 3:
+                position = torch.arange(h_seq.shape[1], device=h.device, dtype=h.dtype).unsqueeze(1)
+                frequency = torch.exp(torch.arange(0, h_seq.shape[-1], 2, device=h.device, dtype=h.dtype)
+                                      * (-math.log(10000.0) / h_seq.shape[-1]))
+                encoding = torch.zeros_like(h_seq[0])
+                encoding[:, 0::2] = torch.sin(position * frequency)
+                encoding[:, 1::2] = torch.cos(position * frequency)
+                h_seq = h_seq + encoding.unsqueeze(0)
+            h_all = self.transformer(h_seq, causal=True)
+            h_trans = h_all.transpose(0, 1) if return_sequence else h_all[:, -1]
+
+            flood_prob = self.flood_prob_head(h_trans)
+            severity_logits = self.severity_head(h_trans)
+            return flood_prob, severity_logits
+else:
+    SpatialGNNConv = None
+    TemporalTransformerBlock = None
+    GNNTransformerFloodModel = None
 
 
 class FloodRiskEngine:
     def __init__(self):
-        self.model = GNNTransformerFloodModel(node_features=8, hidden_dim=32)
-        self.model.eval()
+        if TORCH_AVAILABLE and GNNTransformerFloodModel is not None:
+            self.model = GNNTransformerFloodModel(node_features=8, hidden_dim=32)
+            self.model.eval()
+        else:
+            self.model = None
+
         self.transformer_predictor = None
         checkpoint_path = "backend/ml/checkpoints/best_flood_transformer.pt"
-        try:
-            from backend.ml.inference.eval_flood_transformer import FloodTransformerPredictor
-            import os
-            if os.path.exists(checkpoint_path):
-                self.transformer_predictor = FloodTransformerPredictor(checkpoint_path=checkpoint_path, device="cpu")
-        except Exception:
+        if TORCH_AVAILABLE:
+            try:
+                from backend.ml.inference.eval_flood_transformer import FloodTransformerPredictor
+                import os
+                if os.path.exists(checkpoint_path):
+                    self.transformer_predictor = FloodTransformerPredictor(checkpoint_path=checkpoint_path, device="cpu")
+            except Exception:
+                self.transformer_predictor = None
             self.transformer_predictor = None
 
     def predict_graph_risk(
@@ -156,13 +179,19 @@ class FloodRiskEngine:
                 A[ui, vi] = 1.0
                 A[vi, ui] = 1.0  # Undirected message passing
 
-        with torch.no_grad():
-            x_tensor = torch.from_numpy(X)
-            adj_tensor = torch.from_numpy(A)
-            flood_probs, severity_logits = self.model(x_tensor, adj_tensor)
-
-            probs = flood_probs.squeeze(-1).numpy()
-            severities = torch.argmax(severity_logits, dim=-1).numpy()
+        if TORCH_AVAILABLE and self.model is not None:
+            with torch.no_grad():
+                x_tensor = torch.from_numpy(X)
+                adj_tensor = torch.from_numpy(A)
+                flood_probs, severity_logits = self.model(x_tensor, adj_tensor)
+                probs = flood_probs.squeeze(-1).numpy()
+                severities = torch.argmax(severity_logits, dim=-1).numpy()
+        else:
+            rain_norm = X[:, 4]
+            dist_norm = X[:, 7]
+            soil_norm = X[:, 6]
+            probs = np.clip(0.35 * rain_norm + 0.35 * (1.0 - dist_norm) + 0.30 * soil_norm, 0.05, 0.95)
+            severities = np.where(probs >= 0.75, 3, np.where(probs >= 0.50, 2, np.where(probs >= 0.25, 1, 0)))
 
         severity_labels = ["low", "medium", "high", "critical"]
         predictions = {}
